@@ -5,6 +5,7 @@ import com.example.onlinelibrary.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/book")
@@ -23,22 +24,22 @@ public class CustomerController {
 
     @GetMapping("/findbyid/{id}")
     public Customer findCustomerById(@PathVariable int id) {
-        return customerRepository.findById(id).get();
+        return customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public Customer createCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/{id}")
     public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
-        Customer customerOld = customerRepository.findById(id).get();
+        Customer customerOld = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
         customerOld.setName(customerNew.getName());
         return customerRepository.save(customerOld);
     }
 
-    @DeleteMapping("/deletebyid")
+    @DeleteMapping("/{id}")
     public String deleteCustomerById(@PathVariable int id) {
         customerRepository.deleteById(id);
         return "Deleted customer with id: " + id;
