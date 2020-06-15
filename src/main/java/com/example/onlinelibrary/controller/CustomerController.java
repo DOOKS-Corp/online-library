@@ -34,8 +34,8 @@ public class CustomerController {
     @PutMapping("/update")
     public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
         Customer customerOld = customerRepository.findById(id).get();
-        customerNew.setName(customerOld.getName());
-        return customerRepository.save(customerNew);
+        customerOld.setName(customerNew.getName());
+        return customerRepository.save(customerOld);
     }
 
     @DeleteMapping("/deletebyid")
