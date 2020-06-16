@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -19,6 +17,15 @@ public class Book {
     private int id;
 
     private String name;
+
+    private String genre; // Жанр
+
+    private String author; // Автор
+
+    @Temporal(TemporalType.DATE)
+    private Date dateRealise;  // Дата выхода
+
+
 
 
 

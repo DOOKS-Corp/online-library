@@ -1,10 +1,14 @@
 package com.example.onlinelibrary.controller;
 
+
 import com.example.onlinelibrary.model.Book;
 import com.example.onlinelibrary.repository.BookRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 
 @RestController
 @RequestMapping("/api/book")
@@ -15,31 +19,40 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/findall")
-    public List<Book> findAllCustomers() {
+    @GetMapping
+    public List<Book> getAllBook() {
         return bookRepository.findAll();
     }
 
-    @GetMapping("/findbyid/{id}")
-    public Book findCustomerById(@PathVariable int id) {
-        return bookRepository.findById(id).get();
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable int id) {
+        return bookRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    @PostMapping("/create")
-    public Book createCustomer(@RequestBody Book customer) {
-        return bookRepository.save(customer);
+    //Сохранение новых обьектов (Результат всегда юудет разный)
+    @PostMapping
+    public Book postNewBook(@RequestBody Book book) {
+        return bookRepository.save(book);
     }
 
-    @PutMapping("/update")
-    public Book updateCustomer(@PathVariable int id, @RequestBody Book bookNew) {
-        Book customerOld = bookRepository.findById(id).get();
-        bookNew.setName(customerOld.getName());
-        return bookRepository.save(bookNew;
+    //Изменение записи (Имутабелен - сколько раз вызвать результат будет один и тотже)
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable int id, @RequestBody Book requestBook) {
+        Book dbBook = bookRepository.findById(id).orElseThrow(RuntimeException::new);
+        dbBook.setName(requestBook.getName());
+        dbBook.setGenre(requestBook.getGenre());
+        dbBook.setAuthor(requestBook.getAuthor());
+        dbBook.setDateRealise(requestBook.getDateRealise());
+        return bookRepository.save(dbBook);
     }
 
-    @DeleteMapping("/deletebyid")
-    public String deleteCustomerById(@PathVariable int id) {
-        bookRepository.deleteById(id);
-        return "Deleted customer with id: " + id;
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable int id) {
+        Book dbBook = bookRepository.findById(id).orElseThrow(RuntimeException::new);
+        bookRepository.delete(dbBook);
     }
+
 }
+
+
+
