@@ -32,12 +32,12 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
-    @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
-        Customer customerOld = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        customerOld.setName(customerNew.getName());
-        return customerRepository.save(customerOld);
-    }
+//    @PutMapping("/{id}")
+//    public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
+//        Customer customerOld = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+//        customerOld.setName(customerNew.getName());
+//        return customerRepository.save(customerOld);
+//    }
 
     @DeleteMapping("/{id}")
     public String deleteCustomerById(@PathVariable int id) {
