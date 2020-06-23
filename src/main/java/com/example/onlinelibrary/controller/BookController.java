@@ -36,15 +36,15 @@ public class BookController {
     }
 
     //Изменение записи (Имутабелен - сколько раз вызвать результат будет один и тотже)
-    @PutMapping("/{id}")
-    public Book updateBook(@PathVariable int id, @RequestBody Book requestBook) {
-        Book dbBook = bookRepository.findById(id).orElseThrow(RuntimeException::new);
-        dbBook.setName(requestBook.getName());
-        dbBook.setGenre(requestBook.getGenre());
-        dbBook.setAuthor(requestBook.getAuthor());
-        dbBook.setDateRealise(requestBook.getDateRealise());
-        return bookRepository.save(dbBook);
-    }
+//    @PutMapping("/{id}")
+//    public Book updateBook(@PathVariable int id, @RequestBody Book requestBook) {
+//        Book dbBook = bookRepository.findById(id).orElseThrow(RuntimeException::new);
+//        dbBook.setName(requestBook.getName());
+//        dbBook.setGenre(requestBook.getGenre());
+//        dbBook.setAuthor(requestBook.getAuthor());
+//        dbBook.setDateRealise(requestBook.getDateRealise());
+//        return bookRepository.save(dbBook);
+//    }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable int id) {

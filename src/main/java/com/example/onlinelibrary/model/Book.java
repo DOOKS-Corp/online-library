@@ -1,11 +1,11 @@
 package com.example.onlinelibrary.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 @Entity
@@ -35,5 +35,14 @@ public class Book {
 
     @NotNull
     private int availableNumber;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "orders_books",
+               joinColumns = { @JoinColumn(name = "book_id")},
+               inverseJoinColumns = { @JoinColumn(name = "order_id")})
+    private Set<Order> orders = new HashSet<>();
 
 }
