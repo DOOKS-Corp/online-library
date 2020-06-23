@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class CustomerAddress {
+public class Address {
 
     @NotNull
     @Size(max = 100)
