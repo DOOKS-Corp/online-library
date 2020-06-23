@@ -1,10 +1,14 @@
 package com.example.onlinelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.validation.constraints.*;
 
@@ -38,11 +42,27 @@ public class Book {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "book")
+    private Set<OrdersBooks> ordersBooks = new LinkedHashSet<>();
+
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @ManyToMany(fetch = FetchType.LAZY,
+//                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+//    @JoinTable(name = "orders_books",
+//               joinColumns = { @JoinColumn(name = "book_id")},
+//               inverseJoinColumns = { @JoinColumn(name = "order_id")})
+//    private Set<Order> orders = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.LAZY,
-                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "orders_books",
-               joinColumns = { @JoinColumn(name = "book_id")},
-               inverseJoinColumns = { @JoinColumn(name = "order_id")})
-    private Set<Order> orders = new HashSet<>();
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "books")
+    @JsonIgnore
+    private Set<Author> authors = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Publisher publisher;
 
 }

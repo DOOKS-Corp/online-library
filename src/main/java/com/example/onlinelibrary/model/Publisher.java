@@ -1,11 +1,11 @@
 package com.example.onlinelibrary.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,4 +30,8 @@ public class Publisher {
     @Size(min = 10, max = 13)
     private String phoneNumber;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books = new LinkedHashSet<>();
 }
