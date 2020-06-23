@@ -28,6 +28,10 @@ public class Customer {
     private String firstName;
 
     @NotNull
+    @Size(min = 10, max = 13)
+    private String phoneNumber;
+
+    @NotNull
     @Email
     @Size(max = 50)
     private String email;
