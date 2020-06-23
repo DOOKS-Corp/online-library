@@ -6,27 +6,34 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import javax.validation.constraints.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int ISBN;
 
-    private String name;
-
-    private String genre; // Жанр
-
-    private String author; // Автор
+    @NotNull
+    private String title;
 
     @Temporal(TemporalType.DATE)
-    private Date dateRealise;  // Дата выхода
+    private Date pubDate;
 
+    private int pubId;
 
+    @NotNull
+    private int cost;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private BookCategory category;
 
+    @NotNull
+    private int availableNumber;
 
 }
