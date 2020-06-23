@@ -7,6 +7,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -28,4 +31,15 @@ public class OrdersBooks {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Order order;
+
+    @Temporal(TemporalType.DATE)
+    private Date leaseStartDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date leaseEndDate;
+
+    private boolean isPaid;
+
+    @NotNull
+    private int quantityOfBooks;
 }

@@ -34,11 +34,6 @@ public class Order {
     @Embedded
     private Address address;
 
-    @Temporal(TemporalType.DATE)
-    private Date leaseStartDate;
-
-    @Temporal(TemporalType.DATE)
-    private Date leaseEndDate;
 
     private boolean preOrdered;
 
