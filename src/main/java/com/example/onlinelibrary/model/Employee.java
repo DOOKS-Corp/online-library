@@ -20,18 +20,17 @@ public class Employee {
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String lastName;
+    private String firstName;
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String firstName;
+    private String lastName;
 
     @NotNull
     @Size(min = 10, max = 13)
     private String phoneNumber;
 
     @Email
-    @Size(max = 50)
     private String email;
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -18,25 +19,22 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @Table(name = "books")
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
+    @Id
     @NotNull
     @Size(min = 10, max = 13)
-    private String IBSN;
+    private String ISBN;
 
     @NotNull
     @Size(min = 2, max = 100)
     private String title;
 
-    @Temporal(TemporalType.DATE)
-    private Date pubDate;
-
-    private int pubId;
+    @Column(columnDefinition = "DATE")
+    private LocalDate pubDate;
 
     @NotNull
-    private String cost;
+    @Min(0)
+    private int cost;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -50,15 +48,6 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<OrderItems> orderItems = new LinkedHashSet<>();
 
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @ManyToMany(fetch = FetchType.LAZY,
-//                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    @JoinTable(name = "orders_books",
-//               joinColumns = { @JoinColumn(name = "book_id")},
-//               inverseJoinColumns = { @JoinColumn(name = "order_id")})
-//    private Set<Order> orders = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE },
             mappedBy = "books")
@@ -66,7 +55,6 @@ public class Book {
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Publisher publisher;
 

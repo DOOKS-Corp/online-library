@@ -7,7 +7,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -23,11 +25,11 @@ public class Order {
     private int id;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private Date orderDate;
+    @Column(columnDefinition = "DATE")
+    private LocalDate orderDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date shipDate;
+    @Column(columnDefinition = "DATE")
+    private LocalDate shipDate;
 
     @NotNull
     @Embedded
@@ -38,17 +40,11 @@ public class Order {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "order")
-    private Set<OrderItems> orderItems = new LinkedHashSet<>();
+    private Set<OrderItems> orderItems = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Customer customer;
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//                cascade = { CascadeType.PERSIST, CascadeType.MERGE },
-//                mappedBy = "orders")
-//    @JsonIgnore
-//    private Set<Book> books = new HashSet<>();
 
 }

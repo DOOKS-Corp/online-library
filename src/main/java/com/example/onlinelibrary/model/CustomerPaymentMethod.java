@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -31,7 +32,7 @@ public class CustomerPaymentMethod {
     @Size(min = 2, max = 30)
     private String cardHoldersFirstName;
 
-    @Temporal(TemporalType.DATE)
-    private Date cardValidUntil;
+    @Column(columnDefinition = "DATE")
+    private LocalDate cardValidUntil;
 
 }

@@ -13,5 +13,5 @@ public enum BookCategory {
     ROMANCE,
     SCIENCE_FICTION,
     BIOGRAPHY,
-    POERTY
+    POETRY
 }

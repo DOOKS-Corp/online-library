@@ -7,7 +7,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -31,14 +33,14 @@ public class OrderItems {
     @JsonIgnore
     private Order order;
 
-    @Temporal(TemporalType.DATE)
-    private Date leaseStartDate;
+    @Column(columnDefinition = "DATE")
+    private LocalDate leaseStartDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date leaseEndDate;
+    @Column(columnDefinition = "DATE")
+    private LocalDate leaseEndDate;
 
     private boolean isPaid;
 
-    @NotNull
+    @Min(1)
     private int quantityOfBooks;
 }

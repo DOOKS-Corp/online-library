@@ -21,11 +21,11 @@ public class Customer {
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String lastName;
+    private String firstName;
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String firstName;
+    private String lastName;
 
     @NotNull
     @Size(min = 10, max = 13)
@@ -33,7 +33,6 @@ public class Customer {
 
     @NotNull
     @Email
-    @Size(max = 50)
     private String email;
 
     @ElementCollection(fetch = FetchType.LAZY)
@@ -46,6 +45,6 @@ public class Customer {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "customer")
-    private Set<Order> orders = new LinkedHashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
 }

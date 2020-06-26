@@ -20,11 +20,12 @@ public class Author {
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String lastName;
+    private String firstName;
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String firstName;
+    private String lastName;
+
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -32,6 +33,6 @@ public class Author {
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "author_books",
             joinColumns = { @JoinColumn(name = "author_id")},
-            inverseJoinColumns = { @JoinColumn(name = "book_id")})
+            inverseJoinColumns = { @JoinColumn(name = "book_ISBN")})
     private Set<Book> books = new HashSet<>();
 }
