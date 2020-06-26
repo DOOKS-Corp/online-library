@@ -1,22 +1,51 @@
 package com.example.onlinelibrary.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "customers")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+
+    @NotNull
+    @Size(min = 2, max = 30)
+    private String lastName;
+
+    @NotNull
+    @Size(min = 2, max = 30)
+    private String firstName;
+
+    @NotNull
+    @Size(min = 10, max = 13)
+    private String phoneNumber;
+
+    @NotNull
+    @Email
+    @Size(max = 50)
+    private String email;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "customer_addresses", joinColumns = @JoinColumn(name = "customer_id"))
+    private Set<Address> addresses = new HashSet<>();
+
+    @Embedded
+    private CustomerPaymentMethod customerPaymentMethod;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new LinkedHashSet<>();
+
 }
