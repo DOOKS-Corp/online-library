@@ -20,15 +20,11 @@ public class Publisher {
 
     @NotNull
     @Size(min = 2, max = 30)
-    private String lastName;
+    private String name;
 
     @NotNull
-    @Size(min = 2, max = 30)
-    private String firstName;
-
-    @NotNull
-    @Size(min = 10, max = 13)
-    private String phoneNumber;
+    @Size(min = 10, max = 30)
+    private String contact;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

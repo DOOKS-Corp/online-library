@@ -20,9 +20,14 @@ import javax.validation.constraints.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ISBN;
+    private int id;
 
     @NotNull
+    @Size(min = 10, max = 13)
+    private String IBSN;
+
+    @NotNull
+    @Size(min = 2, max = 100)
     private String title;
 
     @Temporal(TemporalType.DATE)
@@ -31,7 +36,7 @@ public class Book {
     private int pubId;
 
     @NotNull
-    private int cost;
+    private String cost;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -43,7 +48,7 @@ public class Book {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "book")
-    private Set<OrdersBooks> ordersBooks = new LinkedHashSet<>();
+    private Set<OrderItems> orderItems = new LinkedHashSet<>();
 
 //    @ToString.Exclude
 //    @EqualsAndHashCode.Exclude

@@ -30,7 +30,7 @@ public class Address {
     private String state;
 
     @NotNull
-    @Size(max = 10)
+    @Size(max = 20)
     private String country;
 
     @NotNull

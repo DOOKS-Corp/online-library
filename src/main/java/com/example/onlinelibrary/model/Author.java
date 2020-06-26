@@ -32,6 +32,6 @@ public class Author {
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "author_books",
             joinColumns = { @JoinColumn(name = "author_id")},
-            inverseJoinColumns = { @JoinColumn(name = "IBSN")})
+            inverseJoinColumns = { @JoinColumn(name = "book_id")})
     private Set<Book> books = new HashSet<>();
 }

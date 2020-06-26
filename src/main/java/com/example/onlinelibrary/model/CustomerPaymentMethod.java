@@ -21,7 +21,7 @@ public class CustomerPaymentMethod {
 
     @NotNull
     @Size(min = 16, max = 16)
-    private int cardNumber;
+    private String cardNumber;
 
     @NotNull
     @Size(min = 2, max = 30)
@@ -34,7 +34,4 @@ public class CustomerPaymentMethod {
     @Temporal(TemporalType.DATE)
     private Date cardValidUntil;
 
-    @NotNull
-    @Size(min = 3, max = 3)
-    private int secretCode;
 }
