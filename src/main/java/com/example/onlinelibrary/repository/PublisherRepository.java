@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
-    List<Publisher> findById(int id);
-    Publisher findByName(String name);
-    Publisher findByContact(String contact);
+    Publisher findById(int id);
+   List <Publisher> findByName(String name);
+   List <Publisher> findByContact(String contakt);
 
 }

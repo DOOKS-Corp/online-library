@@ -23,17 +23,17 @@ public class PublisherController {
     }
 
     @GetMapping("/findbyid/{id}")
-    public List <Publisher> findById(@PathVariable int id){
+    public Publisher findById(@PathVariable int id){
         return publisherRepository.findById(id);
     }
 
     @GetMapping("findbyname/{name}")
-    public Publisher findByname(@PathVariable String name) {
+    public List <Publisher> findByname(@PathVariable String name) {
         return publisherRepository.findByName(name);
     }
 
     @GetMapping("findbycontact/{contact}")
-    public Publisher findByContact(@PathVariable String contact) {
+    public List <Publisher> findByContact(@PathVariable String contact) {
         return  publisherRepository.findByContact(contact);
     }
 
