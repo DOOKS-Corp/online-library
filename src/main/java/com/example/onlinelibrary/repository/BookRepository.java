@@ -16,10 +16,9 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     Book findBookByISBN(String isbn);
 
-    List<Book> findAllByAuthors(Author author);
-
     @Query(value="" +
-            "select isbn, title,\n" +
+            "select isbn, " +
+            "       title,\n" +
             "       pub_date,\n" +
             "       cost,\n" +
             "       category,\n" +
@@ -36,7 +35,8 @@ public interface BookRepository extends JpaRepository<Book, String> {
     List<Book> findBookByAuthorFirstName(@Param("name") String name);
 
     @Query(value="" +
-            "select isbn, title,\n" +
+            "select isbn, " +
+            "       title,\n" +
             "       pub_date,\n" +
             "       cost,\n" +
             "       category,\n" +
@@ -58,7 +58,19 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     List<Book> findAllByPubDateBetween(LocalDate startDate, LocalDate endDate);
 
-    List<Book> findAllByPublisher(Publisher publisher);
+    @Query(value="select isbn, " +
+            "available_number, " +
+            "category, " +
+            "cost, " +
+            "pub_date, " +
+            "title, " +
+            "publisher_id " +
+            "from books as b " +
+            "inner join publishers as p " +
+            "on b.publisher_id = p.id " +
+            "where p.name = :publisherName",
+            nativeQuery = true)
+    List<Book> findAllByPublisherName(@Param("publisherName")String publisherName);
 
     List<Book> findAllByCostBetween(Integer startCost, Integer endCost);
 

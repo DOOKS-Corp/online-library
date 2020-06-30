@@ -30,11 +30,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    void findAllByAuthors() {
-
-    }
-
-    @Test
     void findBookByAuthorFirstName() {
         final String authorName = "Author name 1";
 
@@ -102,18 +97,59 @@ class BookRepositoryTest {
     }
 
     @Test
-    void findAllByPublisher() {
+    void findAllByPublisherName() {
+        final String publisherName = "Test name 1";
+
+        List<Book> bookList = bookRepository.findAllByPublisherName(publisherName);
+
+        assertNotNull(bookList);
+
+        boolean isValid = bookList.stream()
+                .allMatch(b -> b.getPublisher().getName().equals(publisherName));
+
+        assertTrue(isValid);
     }
 
     @Test
     void findAllByCostBetween() {
+        final int leastCost = 50;
+        final int greatestCost = 150;
+
+        List<Book> bookList = bookRepository.findAllByCostBetween(leastCost, greatestCost);
+
+        assertNotNull(bookList);
+
+        boolean isValid = bookList.stream()
+                .allMatch(b -> b.getCost() <= greatestCost && b.getCost() >= leastCost);
+
+        assertTrue(isValid);
     }
 
     @Test
     void findAllByCostBefore() {
+        final int greatestCost = 150;
+
+        List<Book> bookList = bookRepository.findAllByCostBefore(greatestCost);
+
+        assertNotNull(bookList);
+
+        boolean isValid = bookList.stream()
+                .allMatch(b -> b.getCost() < greatestCost);
+
+        assertTrue(isValid);
     }
 
     @Test
     void findAllByCostAfter() {
+        final int leastCost = 50;
+
+        List<Book> bookList = bookRepository.findAllByCostAfter(leastCost);
+
+        assertNotNull(bookList);
+
+        boolean isValid = bookList.stream()
+                .allMatch(b -> b.getCost() > leastCost);
+
+        assertTrue(isValid);
     }
 }
