@@ -1,51 +1,61 @@
 package com.example.onlinelibrary.controller;
-
 import com.example.onlinelibrary.model.Publisher;
 import com.example.onlinelibrary.repository.PublisherRepository;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("api/publisher")
 public class PublisherController {
-    PublisherRepository publisherRepository;
+
+    private final PublisherRepository publisherRepository;
 
     public PublisherController(PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
 
-    @GetMapping("/findall")
-    public List<Publisher> findAllPublisher(){
+    @GetMapping
+    public List<Publisher> findAllPublisher() {
         return publisherRepository.findAll();
     }
 
-    @GetMapping("/findbyid/{id}")
-    public Publisher findById(@PathVariable int id){
+    @GetMapping("/{id}")
+    public Publisher findById(@PathVariable int id) {
         return publisherRepository.findById(id);
     }
 
-    @GetMapping("findbyname/{name}")
-    public List <Publisher> findByname(@PathVariable String name) {
+    @GetMapping("/name/{name}")
+    public List<Publisher> findByName(@PathVariable String name) {
         return publisherRepository.findByName(name);
     }
 
-    @GetMapping("findbycontact/{contact}")
-    public List <Publisher> findByContact(@PathVariable String contact) {
-        return  publisherRepository.findByContact(contact);
+    @GetMapping("/contact/{contact}")
+    public List<Publisher> findByContact(@PathVariable String contact) {
+        return publisherRepository.findByContact(contact);
     }
 
     @PostMapping
-    public Publisher createPublisher(@RequestBody Publisher publisher) {return publisherRepository.save(publisher);}
+    public Publisher createPublisher(@RequestBody Publisher requestPublisher) {
+        Publisher publisher = new Publisher();
+        publisher.setName(requestPublisher.getName());
+        publisher.setBooks(requestPublisher.getBooks());
+        publisher.setContact(requestPublisher.getContact());
+        return publisherRepository.save(publisher);
+    }
 
     @DeleteMapping("/{id}")
-    public String deletePublisherById(@PathVariable int id){
+    public String deletePublisherById(@PathVariable int id) {
         publisherRepository.deleteById(id);
         return "Deleted publisher with id: " + id;
     }
 
-
-
+    @PutMapping("/{id}")
+    public Publisher updatePublisher(@RequestBody Publisher requestPublisher,
+                                     @PathVariable int id) {
+        Publisher publisher = publisherRepository.findById(id);
+        publisher.setName(requestPublisher.getName());
+        publisher.setBooks(requestPublisher.getBooks());
+        publisher.setContact(requestPublisher.getContact());
+        return publisherRepository.save(publisher);
+    }
 }
