@@ -27,7 +27,7 @@ public interface AuthorRepository extends JpaRepository<Author,Integer> {
 
     @Query(value = "SELECT id, first_name, last_name " +
             "FROM authors AS a " +
-            "LEFT JOIN author_books AS ab" +
+            "LEFT JOIN author_books AS ab " +
             "ON a.id = ab.author_id " +
             "LEFT JOIN books AS b " +
             "ON ab.book_ISBN = b.ISBN " +
