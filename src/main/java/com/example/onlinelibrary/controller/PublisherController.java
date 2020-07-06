@@ -33,6 +33,10 @@ public class PublisherController {
     public List<Publisher> findByContact(@PathVariable String contact) {
         return publisherRepository.findByContact(contact);
     }
+    @GetMapping("/isbn/{ISBN}")
+    public Publisher findPublisherByISBN(@PathVariable String ISBN) {
+        return publisherRepository.findPublisherByISBN(ISBN);
+    }
 
     @PostMapping
     public Publisher createPublisher(@RequestBody Publisher requestPublisher) {
