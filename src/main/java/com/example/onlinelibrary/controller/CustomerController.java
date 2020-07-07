@@ -58,7 +58,7 @@ public class CustomerController {
         return customerRepository.findCustomerByEmail(email);
     }
 
-    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
+    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}")
     public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
                                           @PathVariable String addressLine2,
                                           @PathVariable String city,
