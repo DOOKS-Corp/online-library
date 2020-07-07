@@ -11,26 +11,26 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    public Customer findCustomerByLastName(String lastName);
-    public Customer findCustomerByEmail(String email);
+    Customer findCustomerByLastName(String lastName);
+    Customer findCustomerByEmail(String email);
 
-//    @Query(value = "FROM Customer c " +
-//            "where c.addresses.addressLine1 = :addressLine1 " +
-//            "AND c.addresses.addressLine2 = :addressLine2 " +
-//            "AND c.addresses.city = :city " +
-//            "AND c.addresses.state = :state " +
-//            "AND c.addresses.country = :country " +
-//            "AND c.addresses.zipCode = :zipCode")
-//    public List<Customer> findCustomerByAddressesCustom(@Param("addressLine1")String addressLine1,
-//                                                        @Param("addressLine2")String addressLine2,
-//                                                        @Param("city") String city,
-//                                                        @Param("state") String state,
-//                                                        @Param("country") String country,
-//                                                        @Param("zipCode") String zipCode);
+    @Query(value = "SELECT * FROM customers AS c " +
+            "LEFT JOIN customer_addresses AS ca " +
+            "ON c.id = ca.customer_id " +
+            "WHERE ca.address_line1 = :addressLine1 " +
+            "AND ca.address_line2 = :addressLine2 " +
+            "AND ca.city = :city " +
+            "AND ca.state = :state " +
+            "AND ca.country = :country ", nativeQuery = true)
+    List<Customer> findCustomerByAddressCustom(@Param("addressLine1") String addressLine1,
+                                             @Param("addressLine2") String addressLine2,
+                                             @Param("city") String city,
+                                             @Param("state") String state,
+                                             @Param("country") String country);
 
 
-    public List<Customer> findCustomerByAddresses_zipCode(String zipCode);
-    public List<Customer> findCustomerByAddresses_state(String state);
-    public List<Customer> findByAddresses_city(String city);
+    List<Customer> findCustomerByAddresses_zipCode(String zipCode);
+    List<Customer> findCustomerByAddresses_state(String state);
+    List<Customer> findByAddresses_city(String city);
 
 }

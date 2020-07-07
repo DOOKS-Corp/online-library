@@ -40,6 +40,24 @@ class CustomerRepositoryTest {
 
     @Test
     void findCustomerByAddressesCustom() {
+        final String addressLine1 = "Test address 1 line 1";
+        final String addressLine2 = "Test address 1 line 2";
+        final String city = "Test city 1";
+        final String state = "TS";
+        final String country = "Test country 1";
+
+        List<Customer> customersAddress = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+        assertNotNull(customersAddress);
+
+        boolean isValid = customersAddress
+                .stream()
+                .allMatch(c -> c.getAddresses()
+                .stream().allMatch(a -> (a.getAddressLine1().equals(addressLine1))
+                        && (a.getAddressLine2().equals(addressLine2))
+                        &&(a.getCity().equals(city))
+                        &&(a.getState().equals(state))
+                        &&(a.getCountry().equals(country))));
+        assertTrue(isValid);
     }
 
     @Test

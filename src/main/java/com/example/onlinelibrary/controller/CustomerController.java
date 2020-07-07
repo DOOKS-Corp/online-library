@@ -58,15 +58,14 @@ public class CustomerController {
         return customerRepository.findCustomerByEmail(email);
     }
 
-//    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
-//    public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
-//                                          @PathVariable String addressLine2,
-//                                          @PathVariable String city,
-//                                          @PathVariable String state,
-//                                          @PathVariable String country,
-//                                          @PathVariable String zipCode) {
-//        return customerRepository.findCustomerByAddressesCustom(addressLine1, addressLine2, city, state, country, zipCode);
-//    }
+    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
+    public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
+                                          @PathVariable String addressLine2,
+                                          @PathVariable String city,
+                                          @PathVariable String state,
+                                          @PathVariable String country) {
+        return customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+    }
 
     @GetMapping("/byZipCodel/{zipCode}")
     public List<Customer> findCustomerByAddresses_zipCode(String zipCode) {
