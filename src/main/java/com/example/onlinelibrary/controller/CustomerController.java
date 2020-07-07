@@ -59,10 +59,15 @@ public class CustomerController {
         return customerRepository.findByEmail(email);
     }
 
-//    @GetMapping("/byAddress/{address}")
-//    public List<Customer> findByAddresses(@PathVariable Address address) {
-//        return customerRepository.findByAddresses(address);
-//    }
+    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
+    public List<Customer> findByAddresses(@PathVariable String addressLine1,
+                                          @PathVariable String addressLine2,
+                                          @PathVariable String city,
+                                          @PathVariable String state,
+                                          @PathVariable String country,
+                                          @PathVariable String zipCode) {
+        return customerRepository.findByAddressesCustom(addressLine1, addressLine2, city, state, country, zipCode);
+    }
 
     @GetMapping("/byZipCodel/{zipCode}")
     public List<Customer> findByAddresses_zipCode(String zipCode) {
