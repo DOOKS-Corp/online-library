@@ -1,6 +1,5 @@
 package com.example.onlinelibrary.controller;
 
-import com.example.onlinelibrary.model.Address;
 import com.example.onlinelibrary.model.Customer;
 import com.example.onlinelibrary.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
@@ -50,37 +49,37 @@ public class CustomerController {
     }
 
     @GetMapping("/byLastName/{lastName}")
-    public Customer findByLastName(@PathVariable String lastName) {
-        return customerRepository.findByLastName(lastName);
+    public Customer findCustomerByLastName(@PathVariable String lastName) {
+        return customerRepository.findCustomerByLastName(lastName);
     }
 
     @GetMapping("/byEmail/{email}")
-    public Customer findByEmail(@PathVariable String email) {
-        return customerRepository.findByEmail(email);
+    public Customer findCustomerByEmail(@PathVariable String email) {
+        return customerRepository.findCustomerByEmail(email);
     }
 
-    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
-    public List<Customer> findByAddresses(@PathVariable String addressLine1,
-                                          @PathVariable String addressLine2,
-                                          @PathVariable String city,
-                                          @PathVariable String state,
-                                          @PathVariable String country,
-                                          @PathVariable String zipCode) {
-        return customerRepository.findByAddressesCustom(addressLine1, addressLine2, city, state, country, zipCode);
-    }
+//    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}/{zipCode}")
+//    public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
+//                                          @PathVariable String addressLine2,
+//                                          @PathVariable String city,
+//                                          @PathVariable String state,
+//                                          @PathVariable String country,
+//                                          @PathVariable String zipCode) {
+//        return customerRepository.findCustomerByAddressesCustom(addressLine1, addressLine2, city, state, country, zipCode);
+//    }
 
     @GetMapping("/byZipCodel/{zipCode}")
-    public List<Customer> findByAddresses_zipCode(String zipCode) {
-        return customerRepository.findByAddresses_zipCode(zipCode);
+    public List<Customer> findCustomerByAddresses_zipCode(String zipCode) {
+        return customerRepository.findCustomerByAddresses_zipCode(zipCode);
     }
 
     @GetMapping("/byState/{state}")
-    public List<Customer> findByAddresses_state(String state) {
-        return customerRepository.findByAddresses_state(state);
+    public List<Customer> findCustomerByAddresses_state(String state) {
+        return customerRepository.findCustomerByAddresses_state(state);
     }
 
     @GetMapping("/byCity/{city}")
-    public List<Customer> findByAddresses_city(String city) {
+    public List<Customer> findCustomerByAddresses_city(String city) {
         return customerRepository.findByAddresses_city(city);
     }
 }
