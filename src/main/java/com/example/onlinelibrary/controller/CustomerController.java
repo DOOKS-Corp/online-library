@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
     CustomerRepository customerRepository;
