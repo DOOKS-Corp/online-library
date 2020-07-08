@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    Customer findCustomerByLastName(String lastName);
+    List<Customer> findAllCustomerByLastName(String lastName);
     Customer findCustomerByEmail(String email);
 
     @Query(value = "SELECT * FROM customers AS c " +

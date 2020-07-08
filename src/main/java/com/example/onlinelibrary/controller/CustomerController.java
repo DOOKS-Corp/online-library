@@ -49,8 +49,8 @@ public class CustomerController {
     }
 
     @GetMapping("/byLastName/{lastName}")
-    public Customer findCustomerByLastName(@PathVariable String lastName) {
-        return customerRepository.findCustomerByLastName(lastName);
+    public List<Customer> findCustomerByLastName(@PathVariable String lastName) {
+        return customerRepository.findAllCustomerByLastName(lastName);
     }
 
     @GetMapping("/byEmail/{email}")
@@ -67,7 +67,7 @@ public class CustomerController {
         return customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
     }
 
-    @GetMapping("/byZipCodel/{zipCode}")
+    @GetMapping("/byZipCode/{zipCode}")
     public List<Customer> findCustomerByAddresses_zipCode(String zipCode) {
         return customerRepository.findCustomerByAddresses_zipCode(zipCode);
     }
