@@ -17,12 +17,12 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping("/findall")
+    @GetMapping("/findAll")
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
 
-    @GetMapping("/findbyid/{id}")
+    @GetMapping("/findById/{id}")
     public Customer findCustomerById(@PathVariable int id) {
         return customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
@@ -32,12 +32,15 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
-//    @PutMapping("/{id}")
-//    public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
-//        Customer customerOld = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
-//        customerOld.setName(customerNew.getName());
-//        return customerRepository.save(customerOld);
-//    }
+    @PutMapping("/{id}")
+    public Customer updateCustomer(@PathVariable int id, @RequestBody Customer customerNew) {
+        Customer customerOld = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        customerOld.setFirstName(customerNew.getFirstName());
+        customerOld.setLastName(customerNew.getLastName());
+        customerOld.setPhoneNumber(customerNew.getPhoneNumber());
+        customerOld.setEmail(customerNew.getEmail());
+        return customerRepository.save(customerOld);
+    }
 
     @DeleteMapping("/{id}")
     public String deleteCustomerById(@PathVariable int id) {
@@ -45,4 +48,37 @@ public class CustomerController {
         return "Deleted customer with id: " + id;
     }
 
+    @GetMapping("/byLastName/{lastName}")
+    public Customer findCustomerByLastName(@PathVariable String lastName) {
+        return customerRepository.findCustomerByLastName(lastName);
+    }
+
+    @GetMapping("/byEmail/{email}")
+    public Customer findCustomerByEmail(@PathVariable String email) {
+        return customerRepository.findCustomerByEmail(email);
+    }
+
+    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}")
+    public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
+                                          @PathVariable String addressLine2,
+                                          @PathVariable String city,
+                                          @PathVariable String state,
+                                          @PathVariable String country) {
+        return customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+    }
+
+    @GetMapping("/byZipCodel/{zipCode}")
+    public List<Customer> findCustomerByAddresses_zipCode(String zipCode) {
+        return customerRepository.findCustomerByAddresses_zipCode(zipCode);
+    }
+
+    @GetMapping("/byState/{state}")
+    public List<Customer> findCustomerByAddresses_state(String state) {
+        return customerRepository.findCustomerByAddresses_state(state);
+    }
+
+    @GetMapping("/byCity/{city}")
+    public List<Customer> findCustomerByAddresses_city(String city) {
+        return customerRepository.findByAddresses_city(city);
+    }
 }

@@ -35,7 +35,7 @@ public class Customer {
     @Email
     private String email;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "customer_addresses", joinColumns = @JoinColumn(name = "customer_id"))
     private Set<Address> addresses = new HashSet<>();
 
