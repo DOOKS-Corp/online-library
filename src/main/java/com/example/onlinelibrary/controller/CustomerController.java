@@ -58,27 +58,39 @@ public class CustomerController {
         return customerRepository.findCustomerByEmail(email);
     }
 
-    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}")
-    public List<Customer> findCustomerByAddressesCustom(@PathVariable String addressLine1,
-                                          @PathVariable String addressLine2,
-                                          @PathVariable String city,
-                                          @PathVariable String state,
-                                          @PathVariable String country) {
+//    @GetMapping("/byAddress/{addressLine1}/{addressLine2}/{city}/{state}/{country}")
+//    public Customer findCustomerByAddressesCustom(@PathVariable String addressLine1,
+//                                          @PathVariable String addressLine2,
+//                                          @PathVariable String city,
+//                                          @PathVariable String state,
+//                                          @PathVariable String country) {
+//        return customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+//    }
+
+    @GetMapping("/byAddresses/")
+    public Customer findCustomerByAddressesCustom(@RequestParam String addressLine1,
+                                                  @RequestParam String addressLine2,
+                                                  @RequestParam String city,
+                                                  @RequestParam String state,
+                                                  @RequestParam String country) {
         return customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
     }
 
+
+    //@RequestParam(name = "id") String fooId
+
     @GetMapping("/byZipCode/{zipCode}")
-    public List<Customer> findCustomerByAddresses_zipCode(String zipCode) {
+    public List<Customer> findCustomerByAddresses_zipCode(@PathVariable String zipCode) {
         return customerRepository.findCustomerByAddresses_zipCode(zipCode);
     }
 
     @GetMapping("/byState/{state}")
-    public List<Customer> findCustomerByAddresses_state(String state) {
+    public List<Customer> findCustomerByAddresses_state(@PathVariable String state) {
         return customerRepository.findCustomerByAddresses_state(state);
     }
 
     @GetMapping("/byCity/{city}")
-    public List<Customer> findCustomerByAddresses_city(String city) {
-        return customerRepository.findByAddresses_city(city);
+    public List<Customer> findCustomerByAddresses_city(@PathVariable String city) {
+        return customerRepository.findCustomerByAddresses_city(city);
     }
 }

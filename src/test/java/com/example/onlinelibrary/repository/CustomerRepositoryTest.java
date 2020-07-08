@@ -46,17 +46,16 @@ class CustomerRepositoryTest {
         final String state = "TS";
         final String country = "Test country 1";
 
-        List<Customer> customersAddress = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
-        assertFalse(customersAddress.isEmpty());
+        Customer customerAddress = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+        assertNotNull(customerAddress);
 
-        boolean isValid = customersAddress
+        boolean isValid = customerAddress.getAddresses()
                 .stream()
-                .allMatch(c -> c.getAddresses()
-                .stream().allMatch(a -> (a.getAddressLine1().equals(addressLine1))
+                .allMatch(a -> (a.getAddressLine1().equals(addressLine1))
                         && (a.getAddressLine2().equals(addressLine2))
                         &&(a.getCity().equals(city))
                         &&(a.getState().equals(state))
-                        &&(a.getCountry().equals(country))));
+                        &&(a.getCountry().equals(country)));
         assertTrue(isValid);
     }
 
@@ -92,7 +91,7 @@ class CustomerRepositoryTest {
     void findCustomerByAddresses_city() {
         final String city = "Test city 1";
 
-        List<Customer> customersCity = customerRepository.findByAddresses_city(city);
+        List<Customer> customersCity = customerRepository.findCustomerByAddresses_city(city);
         assertFalse(customersCity.isEmpty());
 
         boolean isValid = customersCity

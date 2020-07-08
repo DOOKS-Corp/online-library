@@ -1,6 +1,5 @@
 package com.example.onlinelibrary.controller;
 
-import com.example.onlinelibrary.model.Author;
 import com.example.onlinelibrary.model.Customer;
 import com.example.onlinelibrary.model.CustomerPaymentMethod;
 import com.example.onlinelibrary.model.PaymentSystem;
@@ -143,35 +142,73 @@ class CustomerControllerTestRestTemplate {
 
         Customer customer = customerRepository.findCustomerByEmail(customerEmail);
         assertNotNull(customer);
-
         assertEquals(customer, responseEntity.getBody());
     }
 
-    @Test
-    void findCustomerByAddressesCustom() {
-    }
-
 //    @Test
-//    void findCustomerByAddresses_zipCode() {
-//        final String customerByZipZode = "111111";
+//    void findCustomerByAddressesCustom() {
+//        final String addressLine1 = "Test address 1 line 1";
+//        final String addressLine2 = "Test address 1 line 2";
+//        final String city = "Test city 1";
+//        final String state = "TS";
+//        final String country = "Test country 1";
 //
-//        ResponseEntity<Customer[]> responseEntity = this.testRestTemplate
-//                .getForEntity("http://localhost:" + port + "/customer/byZipCode/"
-//                        + customerByZipZode, Customer[].class);
+//        ResponseEntity<Customer> responseEntity = this.testRestTemplate
+//                .getForEntity("http://localhost:" + port + "/customer/byAddresses/"
+//                        + addressLine1, addressLine2, city, state, country, Customer.class);
 //        assertNotNull(responseEntity);
 //
-//        Customer[] customers = responseEntity.getBody();
-//        assertNotNull(customers);
-//
-//        assertEquals(customerRepository.findCustomerByAddresses_zipCode(customerByZipZode),
-//                Arrays.asList(customers));
+//        Customer customer = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);;
+//        assertNotNull(customer);
+//        assertEquals(customer, responseEntity.getBody());
 //    }
 
     @Test
+    void findCustomerByAddresses_zipCode() {
+        final String customerByZipZode = "111111";
+
+        ResponseEntity<Customer[]> responseEntity = this.testRestTemplate
+                .getForEntity("http://localhost:" + port + "/customer/byZipCode/"
+                        + customerByZipZode, Customer[].class);
+        assertNotNull(responseEntity);
+
+        Customer[] customers = responseEntity.getBody();
+        assertNotNull(customers);
+
+        assertEquals(customerRepository.findCustomerByAddresses_zipCode(customerByZipZode),
+                Arrays.asList(customers));
+    }
+
+    @Test
     void findCustomerByAddresses_state() {
+        final String customerByState = "TS";
+
+        ResponseEntity<Customer[]> responseEntity = this.testRestTemplate
+                .getForEntity("http://localhost:" + port + "/customer/byState/"
+                + customerByState, Customer[].class);
+        assertNotNull(responseEntity);
+
+        Customer[] customers = responseEntity.getBody();
+        assertNotNull(customers);
+
+        assertEquals(customerRepository.findCustomerByAddresses_state(customerByState),
+                Arrays.asList(customers));
+
     }
 
     @Test
     void findCustomerByAddresses_city() {
+        final String customerByCity = "Test city 1";
+
+        ResponseEntity<Customer[]> responseEntity = this.testRestTemplate
+                .getForEntity("http://localhost:" + port + "/customer/byCity/"
+                + customerByCity, Customer[].class);
+        assertNotNull(responseEntity);
+
+        Customer[] customers = responseEntity.getBody();
+        assertNotNull(customers);
+
+        assertEquals(customerRepository.findCustomerByAddresses_city(customerByCity),
+                Arrays.asList(customers));
     }
 }
