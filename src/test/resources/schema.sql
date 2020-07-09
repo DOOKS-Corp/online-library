@@ -46,14 +46,14 @@ create table books (
                        available_number int not null,
                        publisher_id int,
                        primary key (isbn),
-                       foreign key (publisher_id) references publishers (id)
+                       foreign key (publisher_id) references publishers (id) on delete cascade
 );
 
 create table author_books (
                               author_id int not null,
                               book_ISBN varchar(13) not null,
-                              foreign key (author_id) references authors(id),
-                              foreign key (book_ISBN) references books(isbn),
+                              foreign key (author_id) references authors(id) on delete cascade,
+                              foreign key (book_ISBN) references books(isbn) on delete cascade,
                               unique (author_id, book_ISBN)
 );
 
