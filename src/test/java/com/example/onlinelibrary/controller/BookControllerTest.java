@@ -301,6 +301,27 @@ class BookControllerTest {
     }
 
     @Test
+    void getBookByCategory() {
+        BookCategory requestCategory = testBookList.get(0).getCategory();
+
+        List<Book> categoryBookList = testBookList.stream()
+                .filter(book -> book.getCategory() == requestCategory)
+                .collect(Collectors.toList());
+
+        ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity(
+                getBookUrlFor("/category/" + requestCategory),
+                Book[].class
+        );
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+        Book[] books = responseEntity.getBody();
+        assertNotNull(books);
+
+        assertIterableEquals(categoryBookList, Arrays.asList(books));
+    }
+
+    @Test
     void addBook() {
         Set<Author> authorSet = testBookList.get(0).getAuthors();
         Publisher publisher = testBookList.get(0).getPublisher();

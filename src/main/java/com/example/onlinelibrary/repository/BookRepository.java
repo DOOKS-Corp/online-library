@@ -2,6 +2,7 @@ package com.example.onlinelibrary.repository;
 
 import com.example.onlinelibrary.model.Author;
 import com.example.onlinelibrary.model.Book;
+import com.example.onlinelibrary.model.BookCategory;
 import com.example.onlinelibrary.model.Publisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -79,4 +80,5 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     List<Book> findAllByCostAfter(Integer cost);
 
+    List<Book> findAllByCategory(BookCategory category);
 }

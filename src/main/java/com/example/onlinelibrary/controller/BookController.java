@@ -1,6 +1,7 @@
 package com.example.onlinelibrary.controller;
 
 import com.example.onlinelibrary.model.Book;
+import com.example.onlinelibrary.model.BookCategory;
 import com.example.onlinelibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +80,11 @@ public class BookController {
     @GetMapping("/cost/after/{cost}")
     public List<Book> getBooksByCostAfter(@PathVariable Integer cost) {
         return bookRepository.findAllByCostAfter(cost);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Book> getBooksByCategory(@PathVariable String category) {
+        return bookRepository.findAllByCategory(BookCategory.valueOf(category));
     }
 
     @PostMapping
