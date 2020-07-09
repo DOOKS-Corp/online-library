@@ -23,7 +23,7 @@ class BookRepositoryTest {
     void findBookByISBN() {
         final String isbnTest = "111111aaaaaaa";
 
-        Book book = bookRepository.findBookByISBN(isbnTest);
+        Book book = bookRepository.findBookByISBN(isbnTest).get();
 
         assertNotNull(book);
         assertEquals(isbnTest, book.getISBN());
