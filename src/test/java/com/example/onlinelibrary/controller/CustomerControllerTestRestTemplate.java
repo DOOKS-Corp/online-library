@@ -90,7 +90,7 @@ class CustomerControllerTestRestTemplate {
 //        HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 //
-//        HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(customer), httpHeaders);
+//        HttpEntity<String> entity = new HttpEntity<>(customer, httpHeaders);
 //        ResponseEntity<Customer> responseEntity = testRestTemplate
 //                .exchange("http://localhost:" + port + "/customer/"
 //                        + customerId, HttpMethod.PUT, entity, Customer.class);
@@ -165,17 +165,17 @@ class CustomerControllerTestRestTemplate {
 
     @Test
     void findCustomerByAddresses_zipCode() {
-        final String customerByZipZode = "111111";
+        final String customerByZipСode = "111111";
 
         ResponseEntity<Customer[]> responseEntity = this.testRestTemplate
                 .getForEntity("http://localhost:" + port + "/customer/byZipCode/"
-                        + customerByZipZode, Customer[].class);
+                        + customerByZipСode, Customer[].class);
         assertNotNull(responseEntity);
 
         Customer[] customers = responseEntity.getBody();
         assertNotNull(customers);
 
-        assertEquals(customerRepository.findCustomerByAddresses_zipCode(customerByZipZode),
+        assertEquals(customerRepository.findCustomerByAddresses_zipCode(customerByZipСode),
                 Arrays.asList(customers));
     }
 
