@@ -2,6 +2,7 @@ package com.example.onlinelibrary.repository;
 
 import com.example.onlinelibrary.model.Author;
 import com.example.onlinelibrary.model.Book;
+import com.example.onlinelibrary.model.BookCategory;
 import com.example.onlinelibrary.model.Publisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
 
-    Book findBookByISBN(String isbn);
+    Optional<Book> findBookByISBN(String isbn);
 
     @Query(value="" +
             "select isbn, " +
@@ -78,4 +80,5 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     List<Book> findAllByCostAfter(Integer cost);
 
+    List<Book> findAllByCategory(BookCategory category);
 }

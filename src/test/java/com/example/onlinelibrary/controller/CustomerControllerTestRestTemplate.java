@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -76,29 +77,29 @@ class CustomerControllerTestRestTemplate {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-//    @Test
-//    void updateCustomer() throws JsonProcessingException {
-//        final int customerId = 2;
-//
-//        CustomerPaymentMethod customerPaymentMethod = new CustomerPaymentMethod(PaymentSystem.VISA,
-//                "6666666666666666", "Holders lastname 6", "Holders name 6", LocalDate.now());
-//
-//        Customer customer = new Customer(customerId, "First Name 6", "Last Name 6",
-//                "66666666666", "Email 6",
-//                new HashSet<>(), customerPaymentMethod, new HashSet<>());
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-//
-//        HttpEntity<String> entity = new HttpEntity<>(customer, httpHeaders);
-//        ResponseEntity<Customer> responseEntity = testRestTemplate
-//                .exchange("http://localhost:" + port + "/customer/"
-//                        + customerId, HttpMethod.PUT, entity, Customer.class);
-//        Customer customerBody = responseEntity.getBody();
-//
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertEquals(customer, customerBody);
-//    }
+    @Test
+    void updateCustomer() throws JsonProcessingException {
+        final int customerId = 2;
+
+        CustomerPaymentMethod customerPaymentMethod = new CustomerPaymentMethod(PaymentSystem.VISA,
+                "6666666666666666", "Holders lastname 6", "Holders name 6", LocalDate.now());
+
+        Customer customer = new Customer(customerId, "First Name 6", "Last Name 6",
+                "66666666666", "Email 6",
+                new HashSet<>(), customerPaymentMethod, new HashSet<>());
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<Customer> entity = new HttpEntity<>(customer, httpHeaders);
+        ResponseEntity<Customer> responseEntity = testRestTemplate
+                .exchange("http://localhost:" + port + "/customer/"
+                        + customerId, HttpMethod.PUT, entity, Customer.class);
+        Customer customerBody = responseEntity.getBody();
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(customer, customerBody);
+    }
 
     @Test
     void deleteCustomerById() {
@@ -145,23 +146,33 @@ class CustomerControllerTestRestTemplate {
         assertEquals(customer, responseEntity.getBody());
     }
 
-//    @Test
-//    void findCustomerByAddressesCustom() {
-//        final String addressLine1 = "Test address 1 line 1";
-//        final String addressLine2 = "Test address 1 line 2";
-//        final String city = "Test city 1";
-//        final String state = "TS";
-//        final String country = "Test country 1";
-//
-//        ResponseEntity<Customer> responseEntity = this.testRestTemplate
-//                .getForEntity("http://localhost:" + port + "/customer/byAddresses/"
-//                        + addressLine1, addressLine2, city, state, country, Customer.class);
-//        assertNotNull(responseEntity);
-//
-//        Customer customer = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);;
-//        assertNotNull(customer);
-//        assertEquals(customer, responseEntity.getBody());
-//    }
+    @Test
+    void findCustomerByAddressesCustom() {
+        final String addressLine1 = "Test address 1 line 1";
+        final String addressLine2 = "Test address 1 line 2";
+        final String city = "Test city 1";
+        final String state = "TS";
+        final String country = "Test country 1";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:" + port + "/customer/byAddresses/")
+                .queryParam("addressLine1", addressLine1)
+                .queryParam("addressLine2", addressLine2)
+                .queryParam("city", city)
+                .queryParam("city", city)
+                .queryParam("state", state)
+                .queryParam("country", country);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<String> response = testRestTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                String.class);
+    }
 
     @Test
     void findCustomerByAddresses_zipCode() {
