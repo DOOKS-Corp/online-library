@@ -39,6 +39,9 @@ public class CustomerController {
         customerOld.setLastName(customerNew.getLastName());
         customerOld.setPhoneNumber(customerNew.getPhoneNumber());
         customerOld.setEmail(customerNew.getEmail());
+        customerOld.setAddresses(customerNew.getAddresses());
+        customerOld.setCustomerPaymentMethod(customerNew.getCustomerPaymentMethod());
+        customerOld.setOrders(customerNew.getOrders());
         return customerRepository.save(customerOld);
     }
 

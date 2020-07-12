@@ -42,7 +42,6 @@ public class Customer {
     private CustomerPaymentMethod customerPaymentMethod;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
 
