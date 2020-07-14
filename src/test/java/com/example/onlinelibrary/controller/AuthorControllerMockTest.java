@@ -144,5 +144,6 @@ class AuthorControllerMockTest {
                 .andExpect(content().contentType(MediaType.valueOf("text/plain;charset=UTF-8")))
                 .andExpect(jsonPath("$", Matchers.is("Delete author with id 2")));
 
+
     }
 }
