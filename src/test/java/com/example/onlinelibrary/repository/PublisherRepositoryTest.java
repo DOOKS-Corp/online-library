@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,10 +48,11 @@ class PublisherRepositoryTest {
     @Test
     void findPublisherByISBN() {
         final String ISBN = "111111aaaaaaa";
-        Publisher publisher = publisherRepository.findPublisherByISBN(ISBN);
-        assertNotNull(publisher);
-        boolean isISBN = publisher.getBooks()
+        List <Publisher> publishers = publisherRepository.findPublisherByISBN(ISBN);
+        assertNotNull(publishers);
+        boolean isISBN = publishers
                 .stream()
+                .flatMap(p -> p.getBooks().stream())
                 .anyMatch(b -> b.getISBN().equals(ISBN));
         assertTrue(isISBN);
     }

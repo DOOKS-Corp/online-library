@@ -34,7 +34,7 @@ public class PublisherController {
         return publisherRepository.findByContact(contact);
     }
     @GetMapping("/isbn/{ISBN}")
-    public Publisher findPublisherByISBN(@PathVariable String ISBN) {
+    public List<Publisher> findPublisherByISBN(@PathVariable String ISBN) {
         return publisherRepository.findPublisherByISBN(ISBN);
     }
 

@@ -24,5 +24,5 @@ public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
             "on p.id = b.publisher_id " +
             "WHERE b.ISBN = :ISBN"
             , nativeQuery = true)
-    Publisher findPublisherByISBN(@Param("ISBN")String ISBN);
+   List <Publisher> findPublisherByISBN(@Param("ISBN")String ISBN);
 }

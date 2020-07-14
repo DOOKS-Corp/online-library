@@ -1,3 +1,14 @@
+drop table if exists
+    authors,
+    publishers,
+    books,
+    author_books,
+    customers,
+    customer_addresses,
+    employees,
+    orders,
+    order_items;
+
 create table authors (
                          id int auto_increment,
                          first_name varchar(30) not null,
@@ -35,14 +46,14 @@ create table books (
                        available_number int not null,
                        publisher_id int,
                        primary key (isbn),
-                       foreign key (publisher_id) references publishers (id)
+                       foreign key (publisher_id) references publishers (id) on delete cascade
 );
 
 create table author_books (
                               author_id int not null,
                               book_ISBN varchar(13) not null,
-                              foreign key (author_id) references authors(id),
-                              foreign key (book_ISBN) references books(isbn),
+                              foreign key (author_id) references authors(id) on delete cascade,
+                              foreign key (book_ISBN) references books(isbn) on delete cascade,
                               unique (author_id, book_ISBN)
 );
 
@@ -114,7 +125,6 @@ create table order_items (
                              foreign key (book_isbn) references books(isbn) on delete cascade,
                              foreign key (order_id) references orders(id) on delete cascade
 );
-
 insert into authors (first_name, last_name)
     values
         ('Author name 1', 'Author lastname 1'),
