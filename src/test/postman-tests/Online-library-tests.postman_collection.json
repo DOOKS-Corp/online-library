@@ -1,0 +1,452 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Online-library-tests",
+		"_postman_id": "2b50346e-9768-fbaa-2dd7-5151b21e39b2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BookController",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Recieved 6 objects\"] = jsonData.length === 6;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by ISBN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"ISBN is correct\"] = jsonData.isbn === '111111aaaaaaa';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/111111aaaaaaa",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by Author's first name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"ISBN is correct\"] = jsonData[0].isbn === '111111aaaaaaa' && jsonData[1].isbn === '333333ccccccc';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/author/first-name/Author name 1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by Author's last name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"ISBN is correct\"] = jsonData[0].isbn === '222222bbbbbbb' && jsonData[1].isbn === '444444ddddddd';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/author/last-name/Author lastname 2",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by Title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Title is correct\"] = jsonData.length === 1 && jsonData[0].title === 'Test title 3';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/title/Test title 3",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by Publication Date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Publication-date is correct\"] = jsonData.length === 1 && jsonData[0].pubDate === '2018-09-20';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/publication-date/2018-09-20",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by Publication Date Between",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Publication-date is correct\"] = jsonData.length === 3 && jsonData.filter(el => {",
+									"    return el.pubDate >= '2018-09-20' && el.pubDate <= '2020-08-18';",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/publication-date/2018-09-20/2020-08-18",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books by Publisher Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"ISBN is correct\"] = jsonData.length === 1 && jsonData[0].isbn === '444444ddddddd';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/publisher/name/Test name 4",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books by Cost Between",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Cost is correct\"] = jsonData.filter(el => {",
+									"    return el.cost >= 50 && el.cost <= 150;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/cost/50/150",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books by Cost Before",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Cost is correct\"] = jsonData.length === jsonData.filter(el => el.cost <= 100).length;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/cost/before/100",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books by Cost After",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Cost is correct\"] = jsonData.length === jsonData.filter(el => el.cost >= 100).length;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/cost/after/100",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all books by Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Categories are correct\"] = jsonData.length === jsonData.filter(el => el.category === 'HUMOR').length;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/category/HUMOR",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post new book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"New book is added\"] = jsonData.isbn === '333333cccPOST';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Test title Post\",\n        \"pubDate\": \"2018-09-20\",\n        \"cost\": 120,\n        \"category\": \"HUMOR\",\n        \"availableNumber\": 14,\n        \"orderItems\": [],\n        \"publisher\": {\n            \"id\": 3,\n            \"name\": \"Test name 3\",\n            \"contact\": \"Test contact 3\",\n            \"hibernateLazyInitializer\": {}\n        },\n        \"authors\": [\n        \t {\n\t\t        \"id\": 1,\n\t\t        \"firstName\": \"Author name 1\",\n\t\t        \"lastName\": \"Author lastname 1\",\n\t\t        \"books\": []\n        \t }\n        \t ],\n        \"isbn\": \"333333cccPOST\"\n    }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"New book is added\"] = jsonData.isbn === '333333cccPOST' && jsonData.category === 'DETECTIVE';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/333333cccPOST",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"Test title Post\",\n        \"pubDate\": \"2018-09-20\",\n        \"cost\": 120,\n        \"category\": \"DETECTIVE\",\n        \"availableNumber\": 14,\n        \"orderItems\": [],\n        \"publisher\": {\n            \"id\": 3,\n            \"name\": \"Test name 3\",\n            \"contact\": \"Test contact 3\",\n            \"hibernateLazyInitializer\": {}\n        },\n        \"authors\": [\n        \t {\n\t\t        \"id\": 1,\n\t\t        \"firstName\": \"Author name 1\",\n\t\t        \"lastName\": \"Author lastname 1\",\n\t\t        \"books\": []\n        \t }\n        \t ],\n        \"isbn\": \"333333cccPOST\"\n    }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"",
+									"tests[\"Body is correct\"] = responseBody === \"Book 333333cccPOST was deleted\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:8080/api/book/333333cccPOST",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
