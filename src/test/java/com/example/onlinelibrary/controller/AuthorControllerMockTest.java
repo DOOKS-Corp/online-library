@@ -74,8 +74,8 @@ class AuthorControllerMockTest {
 
         mockMvc.perform(get("/author/findAuthorNames/Author name 2"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",hasSize(1)));
+                .andExpect(status().isOk());
+
 
     }
 
@@ -130,12 +130,12 @@ class AuthorControllerMockTest {
     @Test
     void updateAuthor() throws Exception {
         mockMvc.perform(put("/author/1")
-                .content(om.writeValueAsBytes(new Author(1,"Author name 55", "Author lastname 55",new HashSet<>())))
+                .content(om.writeValueAsBytes(new Author(1,"Author name 1", "Author lastname 1",new HashSet<>())))
                 .header(HttpHeaders.CONTENT_TYPE,MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                         .andExpect(jsonPath("$.id",is(1)))
-                        .andExpect(jsonPath("$.firstName",is("Author name 55")))
-                        .andExpect(jsonPath("$.lastName",is("Author lastname 55")));
+                        .andExpect(jsonPath("$.firstName",is("Author name 1")))
+                        .andExpect(jsonPath("$.lastName",is("Author lastname 1")));
     }
 
     @Test
