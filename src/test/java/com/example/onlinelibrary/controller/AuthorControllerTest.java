@@ -49,7 +49,7 @@ class AuthorControllerTest {
 
     @Test
     void findAuthorById() {
-        final int authorId = 1;
+        final int authorId = 3;
         ResponseEntity<Author> responseEntity = this.restTemplate
                 .getForEntity("http://localhost:" + port + "/author/" + authorId, Author.class);
         assertNotNull(responseEntity);
