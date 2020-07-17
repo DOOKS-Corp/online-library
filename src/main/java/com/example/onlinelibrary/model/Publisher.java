@@ -1,9 +1,11 @@
 package com.example.onlinelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -29,5 +31,6 @@ public class Publisher {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "publisher")
+    @JsonIgnore
     private Set<Book> books = new LinkedHashSet<>();
 }

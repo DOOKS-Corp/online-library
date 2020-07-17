@@ -163,7 +163,7 @@ class AuthorControllerTest {
 
     @Test
     void deleteAuthor() {
-        final int authorId = 1;
+        final int authorId = 3;
         HttpEntity<String> entity = new HttpEntity<>(null, new HttpHeaders());
 
         ResponseEntity<String> responseEntity =
