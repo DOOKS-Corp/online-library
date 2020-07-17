@@ -163,7 +163,7 @@ class AuthorControllerTest {
 
     @Test
     void deleteAuthor() {
-        final int authorId = 3;
+        final int authorId = 4;
         HttpEntity<String> entity = new HttpEntity<>(null, new HttpHeaders());
 
         ResponseEntity<String> responseEntity =
@@ -176,13 +176,4 @@ class AuthorControllerTest {
 
     }
 
-    private static void printJSON(Object object) {
-        String result;
-        try {
-            result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
-            System.out.println(result);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
 }

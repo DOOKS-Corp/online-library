@@ -1,3 +1,14 @@
+drop table if exists
+    authors,
+    publishers,
+    books,
+    author_books,
+    customers,
+    customer_addresses,
+    employees,
+    orders,
+    order_items;
+
 create table authors (
                          id int auto_increment,
                          first_name varchar(30) not null,
