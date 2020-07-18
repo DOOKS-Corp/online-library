@@ -1,6 +1,9 @@
 package com.example.onlinelibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -42,6 +45,7 @@ public class Customer {
     private CustomerPaymentMethod customerPaymentMethod;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
 
