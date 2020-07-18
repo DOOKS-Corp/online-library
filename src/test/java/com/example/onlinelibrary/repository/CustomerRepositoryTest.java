@@ -22,10 +22,10 @@ class CustomerRepositoryTest {
     void findCustomerByLastName() {
         final String lastName = "Test lastname 1";
 
-        Customer customer = customerRepository.findCustomerByLastName(lastName);
+        List<Customer> customers = customerRepository.findAllCustomerByLastName(lastName);
 
-        assertNotNull(customer);
-        assertEquals(lastName, customer.getLastName());
+        assertFalse(customers.isEmpty());
+        assertTrue(customers.stream().allMatch(c -> c.getLastName().equals(lastName)));
     }
 
     @Test
@@ -46,17 +46,16 @@ class CustomerRepositoryTest {
         final String state = "TS";
         final String country = "Test country 1";
 
-        List<Customer> customersAddress = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
-        assertNotNull(customersAddress);
+        Customer customerAddress = customerRepository.findCustomerByAddressCustom(addressLine1, addressLine2, city, state, country);
+        assertNotNull(customerAddress);
 
-        boolean isValid = customersAddress
+        boolean isValid = customerAddress.getAddresses()
                 .stream()
-                .allMatch(c -> c.getAddresses()
-                .stream().allMatch(a -> (a.getAddressLine1().equals(addressLine1))
+                .allMatch(a -> (a.getAddressLine1().equals(addressLine1))
                         && (a.getAddressLine2().equals(addressLine2))
                         &&(a.getCity().equals(city))
                         &&(a.getState().equals(state))
-                        &&(a.getCountry().equals(country))));
+                        &&(a.getCountry().equals(country)));
         assertTrue(isValid);
     }
 
@@ -65,7 +64,7 @@ class CustomerRepositoryTest {
         final String zipCode = "111111";
 
         List<Customer> customersZipCode = customerRepository.findCustomerByAddresses_zipCode(zipCode);
-        assertNotNull(customersZipCode);
+        assertFalse(customersZipCode.isEmpty());
 
         boolean isValid = customersZipCode
                 .stream()
@@ -79,7 +78,7 @@ class CustomerRepositoryTest {
         final String state = "TS";
 
         List<Customer> customersState = customerRepository.findCustomerByAddresses_state(state);
-        assertNotNull(customersState);
+        assertFalse(customersState.isEmpty());
 
         boolean isValid = customersState
                 .stream()
@@ -92,8 +91,8 @@ class CustomerRepositoryTest {
     void findCustomerByAddresses_city() {
         final String city = "Test city 1";
 
-        List<Customer> customersCity = customerRepository.findByAddresses_city(city);
-        assertNotNull(customersCity);
+        List<Customer> customersCity = customerRepository.findCustomerByAddresses_city(city);
+        assertFalse(customersCity.isEmpty());
 
         boolean isValid = customersCity
                 .stream()

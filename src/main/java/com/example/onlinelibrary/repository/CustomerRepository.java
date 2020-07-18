@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    Customer findCustomerByLastName(String lastName);
+    List<Customer> findAllCustomerByLastName(String lastName);
     Customer findCustomerByEmail(String email);
 
     @Query(value = "SELECT * FROM customers AS c " +
@@ -22,7 +22,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             "AND ca.city = :city " +
             "AND ca.state = :state " +
             "AND ca.country = :country ", nativeQuery = true)
-    List<Customer> findCustomerByAddressCustom(@Param("addressLine1") String addressLine1,
+    Customer findCustomerByAddressCustom(@Param("addressLine1") String addressLine1,
                                              @Param("addressLine2") String addressLine2,
                                              @Param("city") String city,
                                              @Param("state") String state,
@@ -31,6 +31,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     List<Customer> findCustomerByAddresses_zipCode(String zipCode);
     List<Customer> findCustomerByAddresses_state(String state);
-    List<Customer> findByAddresses_city(String city);
+    List<Customer> findCustomerByAddresses_city(String city);
 
 }

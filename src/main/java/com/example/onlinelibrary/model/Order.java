@@ -46,5 +46,4 @@ public class Order {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Customer customer;
-
 }
