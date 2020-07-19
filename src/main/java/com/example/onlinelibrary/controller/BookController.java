@@ -1,12 +1,12 @@
 package com.example.onlinelibrary.controller;
 
+import com.example.onlinelibrary.beans.RntBookResWrp;
+import com.example.onlinelibrary.business.BookBusinessImpl;
 import com.example.onlinelibrary.model.Book;
 import com.example.onlinelibrary.model.BookCategory;
 import com.example.onlinelibrary.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,8 +17,11 @@ public class BookController {
 
     private final BookRepository bookRepository;
 
-    public BookController(BookRepository bookRepository) {
+    private final BookBusinessImpl bookBusiness;
+
+    public BookController(BookRepository bookRepository, BookBusinessImpl bookBusiness) {
         this.bookRepository = bookRepository;
+        this.bookBusiness = bookBusiness;
     }
 
     @GetMapping
@@ -27,7 +30,12 @@ public class BookController {
     }
 
     @GetMapping("/{isbn}")
-    public Book getBookByISBN(@PathVariable String isbn) {
+    public RntBookResWrp getBookByISBN(@PathVariable String isbn) {
+        return bookBusiness.service(isbn);
+    }
+
+    @GetMapping("/old/{isbn}")
+    public Book getOldBookByISBN(@PathVariable String isbn) {
         return bookRepository.findBookByISBN(isbn).orElseThrow(NoSuchElementException::new);
     }
 
