@@ -1,5 +1,6 @@
 package com.example.onlinelibrary.controller;
 
+import com.example.onlinelibrary.beans.RntBookResWrp;
 import com.example.onlinelibrary.model.Author;
 import com.example.onlinelibrary.model.Book;
 import com.example.onlinelibrary.model.BookCategory;
@@ -80,16 +81,29 @@ class BookControllerTest {
     }
 
     @Test
-    void getBookByISBN() {
+    void getOldBookByISBN() {
         Book testBook = testBookList.get(0);
         ResponseEntity<Book> responseEntity = restTemplate.getForEntity(
-                getBookUrlFor("/" + testBook.getISBN()),
+                getOldBookUrlFor("/" + testBook.getISBN()),
                 Book.class
         );
 
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(testBook, responseEntity.getBody());
+    }
+
+    @Test
+    void getBookByISBN() {
+        Book testBook = testBookList.get(0);
+        ResponseEntity<RntBookResWrp> responseEntity = restTemplate.getForEntity(
+                getBookUrlFor("/" + testBook.getISBN()),
+                RntBookResWrp.class
+        );
+
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(testBook.getISBN(), responseEntity.getBody().getBook().getIsbn());
     }
 
     @Test
@@ -433,5 +447,9 @@ class BookControllerTest {
 
     private String getBookUrlFor(String postfix) {
         return String.format("http://localhost:%d/api/book%s", port, postfix);
+    }
+
+    private String getOldBookUrlFor(String postfix) {
+        return String.format("http://localhost:%d/api/book/old%s", port, postfix);
     }
 }
