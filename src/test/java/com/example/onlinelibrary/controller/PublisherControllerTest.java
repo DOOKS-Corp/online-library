@@ -17,8 +17,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -91,7 +94,7 @@ class PublisherControllerTest {
                 .getForEntity("http://localhost:" + port + "api/publisher/contact/Test contact 1", Publisher[].class)));
         ResponseEntity<Publisher[]> responseEntity = this.restTemplate
                 .getForEntity("http://localhost:" + port + "api/publisher/contact/Test contact 1", Publisher[].class);
-//        assertEquals(responseEntity.getBody().length > 0);
+       // assertEquals(responseEntity.getBody().length > 0);
         assertEquals(publisherRepository.findByContact("Test contact 1"), Arrays.asList(responseEntity.getBody()));
         assertNotEquals(publisherRepository.findByContact("Error Contact"), Arrays.asList(responseEntity.getBody()));
 
@@ -100,10 +103,10 @@ class PublisherControllerTest {
     @Test
     void findPublisherByISBN() {
         assertNotNull(this.restTemplate
-                .getForEntity("http://localhost:" + port + "api/publisher/isbn/111111aaaaaaa", Publisher.class));
-        ResponseEntity<Publisher> responseEntity = this.restTemplate
-                .getForEntity("http://localhost:" + port + "api/publisher/isbn/111111aaaaaaa", Publisher.class);
-        assertEquals(publisherRepository.findPublisherByISBN("111111aaaaaaa"), responseEntity.getBody());
+                .getForEntity("http://localhost:" + port + "api/publisher/isbn/111111aaaaaaa", Publisher[].class));
+        ResponseEntity <Publisher[]>  responseEntity = this.restTemplate
+                .getForEntity("http://localhost:" + port + "api/publisher/isbn/111111aaaaaaa", Publisher[].class);
+        assertThat(publisherRepository.findPublisherByISBN("111111aaaaaaa"), hasSize(1));
         assertNotEquals(publisherRepository.findPublisherByISBN("Error ISMN"), responseEntity.getBody());
 
     }
@@ -125,18 +128,18 @@ class PublisherControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/publisher/1", HttpMethod.DELETE, entity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/publisher/5", HttpMethod.DELETE, entity, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals("Deleted publisher with id: 1", responseEntity.getBody());
+        assertEquals("Deleted publisher with id: 5", responseEntity.getBody());
     }
 
     @Test
     void updatePublisher() throws JsonProcessingException {
-        Publisher publisher = new Publisher(1, "name", "contact", new LinkedHashSet<>());
+        Publisher publisher = new Publisher(4, "name", "contact", new LinkedHashSet<>());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(publisher), headers);
-        ResponseEntity<Publisher> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/publisher/1", HttpMethod.PUT, entity, Publisher.class);
+        ResponseEntity<Publisher> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/publisher/4", HttpMethod.PUT, entity, Publisher.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
