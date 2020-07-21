@@ -140,6 +140,7 @@ class PublisherControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(objectMapper.writeValueAsString(publisher), headers);
         ResponseEntity<Publisher> responseEntity = restTemplate.exchange("http://localhost:" + port + "/api/publisher/4", HttpMethod.PUT, entity, Publisher.class);
+        assertEquals(publisherController.findById(4),publisher);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
