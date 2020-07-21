@@ -49,7 +49,7 @@ class AuthorControllerTest {
 
     @Test
     void findAuthorById() {
-        final int authorId = 1;
+        final int authorId = 3;
         ResponseEntity<Author> responseEntity = this.restTemplate
                 .getForEntity("http://localhost:" + port + "/author/" + authorId, Author.class);
         assertNotNull(responseEntity);
@@ -174,15 +174,5 @@ class AuthorControllerTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals("Delete author with id " + authorId, messages);
 
-    }
-
-    private static void printJSON(Object object) {
-        String result;
-        try {
-            result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
-            System.out.println(result);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
     }
 }
